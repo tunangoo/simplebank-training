@@ -90,6 +90,7 @@ func (q *Queries) GetAccount(ctx context.Context, id int64) (Account, error) {
 	return i, err
 }
 
+<<<<<<< HEAD
 const getAccountForUpdate = `-- name: GetAccountForUpdate :one
 SELECT id, owner, balance, currency, created_at FROM accounts
 WHERE id = $1 LIMIT 1
@@ -109,6 +110,8 @@ func (q *Queries) GetAccountForUpdate(ctx context.Context, id int64) (Account, e
 	return i, err
 }
 
+=======
+>>>>>>> main
 const listAccounts = `-- name: ListAccounts :many
 SELECT id, owner, balance, currency, created_at FROM accounts
 ORDER BY id
