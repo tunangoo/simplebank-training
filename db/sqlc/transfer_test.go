@@ -9,13 +9,13 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func CreateRandomTranfer(t *testing.T, account1 Account, account2 Account) Transfer {
+func createRandomTranfer(t *testing.T, account1 Account, account2 Account) Transfer {
 	arg := CreateTransferParams{
 		FromAccountID: account1.ID,
 		ToAccountID:   account2.ID,
 		Amount:        util.RandomMoney(),
 	}
-	transfer, err := testQueries.CreateTransfer(context.Background(), arg)
+	transfer, err := testStore.CreateTransfer(context.Background(), arg)
 	require.NoError(t, err)
 	require.NotEmpty(t, transfer)
 
@@ -33,15 +33,15 @@ func TestCreateTransfer(t *testing.T) {
 	account1 := createRandomAccount(t)
 	account2 := createRandomAccount(t)
 
-	CreateRandomTranfer(t, account1, account2)
+	createRandomTranfer(t, account1, account2)
 }
 
 func TestGetTransfer(t *testing.T) {
 	account1 := createRandomAccount(t)
 	account2 := createRandomAccount(t)
-	transfer1 := CreateRandomTranfer(t, account1, account2)
+	transfer1 := createRandomTranfer(t, account1, account2)
 
-	transfer2, err := testQueries.GetTransfer(context.Background(), transfer1.ID)
+	transfer2, err := testStore.GetTransfer(context.Background(), transfer1.ID)
 	require.NoError(t, err)
 	require.NotEmpty(t, transfer2)
 
@@ -57,8 +57,8 @@ func TestListTransfer(t *testing.T) {
 	account1 := createRandomAccount(t)
 	account2 := createRandomAccount(t)
 	for i := 0; i < 5; i++ {
-		CreateRandomTranfer(t, account1, account2)
-		CreateRandomTranfer(t, account2, account1)
+		createRandomTranfer(t, account1, account2)
+		createRandomTranfer(t, account2, account1)
 	}
 
 	arg := ListTransfersParams{
@@ -67,7 +67,7 @@ func TestListTransfer(t *testing.T) {
 		Limit:         5,
 		Offset:        5,
 	}
-	transfers, err := testQueries.ListTransfers(context.Background(), arg)
+	transfers, err := testStore.ListTransfers(context.Background(), arg)
 	require.NoError(t, err)
 	require.Len(t, transfers, 5)
 
