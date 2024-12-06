@@ -2,9 +2,8 @@ name: ci-test
 
 on:
   push:
-    branches: [ 04_12 ]
   pull_request:
-    branches: [ 04_12 ]
+    branches: [ main ]
 
 jobs:
 
@@ -45,7 +44,7 @@ jobs:
         which migrate
 
     - name: Run migrations
-      run: make migrateup
+      run: make migrate_up
 
     - name: Test
       run: make test
