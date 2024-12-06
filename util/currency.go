@@ -1,15 +1,14 @@
 package util
 
+type Currency int
+
 const (
-	USD = "USD"
-	EUR = "EUR"
-	CAD = "CAD"
+	USD Currency = iota
+	EUR
+	CAD
 )
 
 func IsSupportedCurrency(currency string) bool {
-	switch currency {
-	case USD, EUR, CAD:
-		return true
-	}
-	return false
+	_, ok := CurrencyString(currency)
+	return ok == nil
 }
