@@ -40,6 +40,19 @@ make up
 docker-compose up -d
 ```
 
+### 2. Linting và Testing
+
+```bash
+# Chạy linting
+make lint
+
+# Kiểm tra linting (không sửa)
+make lint-check
+
+# Chạy tests
+make test
+```
+
 ### 2. Xem logs
 
 ```bash
@@ -173,6 +186,40 @@ docker-compose logs -f app
 
 # Vào container
 docker exec -it simplebank-app sh
+```
+
+## CI/CD Pipeline
+
+Dự án sử dụng GitHub Actions để tự động hóa:
+
+### Workflow: `.github/workflows/ci.yml`
+
+**Triggers:**
+
+- Push vào `main` hoặc `develop` branch
+- Pull Request vào `main` hoặc `develop` branch
+
+**Jobs:**
+
+1. **Setup**: Go 1.23.3, PostgreSQL 17
+2. **Dependencies**: Download và verify Go modules
+3. **Database**: Chạy migrations
+4. **Testing**: Chạy unit tests
+5. **Linting**: Format code, go vet, goimports
+6. **Build**: Compile binary và Docker image
+7. **Artifacts**: Upload build artifacts
+
+### Chạy Pipeline Locally
+
+```bash
+# Linting
+make lint
+
+# Testing
+make test
+
+# Build
+make build
 ```
 
 ## Production
