@@ -75,7 +75,7 @@ jobs:
         run: |
           go fmt ./...
           go vet ./...
-          ${{ env.GOPATH }}/bin/goimports -w .
+          $GOPATH/bin/goimports -w .
 
       - name: Build application
         run: go build -o simplebank main.go
