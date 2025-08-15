@@ -1,8 +1,10 @@
 name: Release Docker Image
 
 on:
-  release:
-    types: [published, created]
+  push:
+    # run only against tags
+    tags:
+      - "*"
 
 jobs:
   build-and-push:
