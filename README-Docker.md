@@ -192,7 +192,7 @@ docker exec -it simplebank-app sh
 
 Dự án sử dụng GitHub Actions để tự động hóa:
 
-### Workflow: `.github/workflows/ci.yml`
+### 1. CI Workflow: `.github/workflows/ci.yml`
 
 **Triggers:**
 
@@ -205,9 +205,28 @@ Dự án sử dụng GitHub Actions để tự động hóa:
 2. **Dependencies**: Download và verify Go modules
 3. **Database**: Chạy migrations
 4. **Testing**: Chạy unit tests
-5. **Linting**: Format code, go vet, goimports
-6. **Build**: Compile binary và Docker image
-7. **Artifacts**: Upload build artifacts
+5. **Build**: Compile binary và Docker image (local)
+6. **Artifacts**: Upload build artifacts
+
+### 2. Release Workflow: `.github/workflows/release.yml`
+
+**Triggers:**
+
+- Tạo release mới trên GitHub
+- Publish release
+
+**Jobs:**
+
+1. **Setup**: Docker Buildx
+2. **Authentication**: Login Docker Hub
+3. **Metadata**: Extract version tags
+4. **Build & Push**: Build và push Docker image
+5. **Artifacts**: Upload release info
+
+**Docker Images:**
+
+- Tự động tag theo version: `v1.0.0`, `v1.1.0`
+- Push lên Docker Hub với namespace của bạn
 
 ### Chạy Pipeline Locally
 

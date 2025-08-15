@@ -74,7 +74,9 @@ jobs:
         run: go build -o simplebank main.go
 
       - name: Build Docker image
-        run: docker build -t simplebank:test .
+        run: |
+          docker build -t simplebank:test .
+          docker images simplebank
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
