@@ -1,4 +1,4 @@
-name: Go CI Pipeline
+name: Build and Test
 
 on:
   push:
@@ -7,8 +7,8 @@ on:
     branches: [main, develop]
 
 jobs:
-  build_test_lint:
-    name: Build, Test, and Lint
+  build_test:
+    name: Build and Test Pipeline
     runs-on: ubuntu-latest
 
     services:
@@ -42,9 +42,6 @@ jobs:
           sudo mv migrate /usr/bin/migrate
           migrate -version
 
-      - name: Install goimports
-        run: go install golang.org/x/tools/cmd/goimports@latest
-
       - name: Cache Go modules
         uses: actions/cache@v4
         with:
@@ -71,11 +68,7 @@ jobs:
         env:
           DB_SOURCE: postgresql://root:secret@localhost:5432/simple_bank?sslmode=disable
 
-      - name: Run basic linting
-        run: |
-          go fmt ./...
-          go vet ./...
-          $GOPATH/bin/goimports -w .
+      # Lint step removed per request
 
       - name: Build application
         run: go build -o simplebank main.go
