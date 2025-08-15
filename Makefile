@@ -21,12 +21,12 @@ logs-postgres:
 lint:
 	go fmt ./...
 	go vet ./...
-	goimports -w .
+	$(shell go env GOPATH)/bin/goimports -w .
 
 lint-check:
 	go fmt -n ./...
 	go vet ./...
-	goimports -d .
+	$(shell go env GOPATH)/bin/goimports -d .
 
 # Database commands (for local development)
 postgres:

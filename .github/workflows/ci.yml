@@ -42,6 +42,9 @@ jobs:
           sudo mv migrate /usr/bin/migrate
           migrate -version
 
+      - name: Install goimports
+        run: go install golang.org/x/tools/cmd/goimports@latest
+
       - name: Cache Go modules
         uses: actions/cache@v4
         with:
@@ -72,7 +75,7 @@ jobs:
         run: |
           go fmt ./...
           go vet ./...
-          goimports -w .
+          ${{ env.GOPATH }}/bin/goimports -w .
 
       - name: Build application
         run: go build -o simplebank main.go
