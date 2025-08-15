@@ -36,12 +36,19 @@ Cần thiết lập các secrets sau trong GitHub repository:
 ### 1. Tạo Release trên GitHub
 
 ```bash
-# Tạo tag
+# Tạo tag (đảm bảo format: vX.Y.Z)
 git tag v1.0.0
 
 # Push tag
 git push origin v1.0.0
 ```
+
+**Lưu ý về tag format:**
+
+- Sử dụng format semantic versioning: `v1.0.0`, `v1.1.0`
+- Không sử dụng dấu `-` ở đầu: `-v1.0.0` ❌
+- Không sử dụng underscore: `v1_0_0` ❌
+- Format đúng: `v1.0.0` ✅
 
 ### 2. Tạo Release trên GitHub
 
@@ -57,15 +64,13 @@ Workflow sẽ tự động tạo các tags:
 
 - **Version tag**: `v1.0.0`, `v1.1.0`
 - **Major.Minor**: `v1.0`, `v1.1`
-- **Branch**: `main-abc123`, `develop-def456`
-- **Latest**: `latest`
+- **Latest**: `latest` (chỉ khi push vào default branch)
 
 ## Ví dụ Tags
 
 ```
 yourusername/simplebank:v1.0.0
 yourusername/simplebank:v1.0
-yourusername/simplebank:main-abc123
 yourusername/simplebank:latest
 ```
 
@@ -98,6 +103,12 @@ docker run -p 6000:8080 yourusername/simplebank:latest
 
 - Kiểm tra Dockerfile có lỗi gì không
 - Xem logs trong GitHub Actions
+
+### 4. Invalid tag format
+
+- Đảm bảo tag Git có format hợp lệ: `v1.0.0`, `v1.1.0`
+- Không sử dụng dấu `-` ở đầu tag
+- Tag phải bắt đầu bằng chữ cái hoặc số
 
 ## Local Testing
 
